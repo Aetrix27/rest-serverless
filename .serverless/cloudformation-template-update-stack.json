@@ -77,18 +77,6 @@
         "LogGroupName": "/aws/lambda/my-express-application-dev-app"
       }
     },
-    "GetUserLogGroup": {
-      "Type": "AWS::Logs::LogGroup",
-      "Properties": {
-        "LogGroupName": "/aws/lambda/my-express-application-dev-getUser"
-      }
-    },
-    "CreateUserLogGroup": {
-      "Type": "AWS::Logs::LogGroup",
-      "Properties": {
-        "LogGroupName": "/aws/lambda/my-express-application-dev-createUser"
-      }
-    },
     "IamRoleLambdaExecution": {
       "Type": "AWS::IAM::Role",
       "Properties": {
@@ -192,7 +180,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/my-express-application/dev/1619118132877-2021-04-22T19:02:12.877Z/my-express-application.zip"
+          "S3Key": "serverless/my-express-application/dev/1619385918764-2021-04-25T21:25:18.764Z/my-express-application.zip"
         },
         "Handler": "index.handler",
         "Runtime": "nodejs10.x",
@@ -215,94 +203,14 @@
         "AppLogGroup"
       ]
     },
-    "GetUserLambdaFunction": {
-      "Type": "AWS::Lambda::Function",
-      "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Ref": "ServerlessDeploymentBucket"
-          },
-          "S3Key": "serverless/my-express-application/dev/1619118132877-2021-04-22T19:02:12.877Z/my-express-application.zip"
-        },
-        "Handler": "index.handler",
-        "Runtime": "nodejs10.x",
-        "FunctionName": "my-express-application-dev-getUser",
-        "MemorySize": 1024,
-        "Timeout": 6,
-        "Environment": {
-          "Variables": {
-            "USERS_TABLE": "users-table-dev"
-          }
-        },
-        "Role": {
-          "Fn::GetAtt": [
-            "IamRoleLambdaExecution",
-            "Arn"
-          ]
-        }
-      },
-      "DependsOn": [
-        "GetUserLogGroup"
-      ]
-    },
-    "CreateUserLambdaFunction": {
-      "Type": "AWS::Lambda::Function",
-      "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Ref": "ServerlessDeploymentBucket"
-          },
-          "S3Key": "serverless/my-express-application/dev/1619118132877-2021-04-22T19:02:12.877Z/my-express-application.zip"
-        },
-        "Handler": "index.handler",
-        "Runtime": "nodejs10.x",
-        "FunctionName": "my-express-application-dev-createUser",
-        "MemorySize": 1024,
-        "Timeout": 6,
-        "Environment": {
-          "Variables": {
-            "USERS_TABLE": "users-table-dev"
-          }
-        },
-        "Role": {
-          "Fn::GetAtt": [
-            "IamRoleLambdaExecution",
-            "Arn"
-          ]
-        }
-      },
-      "DependsOn": [
-        "CreateUserLogGroup"
-      ]
-    },
-    "CreateUserLambdaVersionGFqJrYsHkzJC16bJ1vUtuk338d55YfK2rOKTF8WTVMg": {
-      "Type": "AWS::Lambda::Version",
-      "DeletionPolicy": "Retain",
-      "Properties": {
-        "FunctionName": {
-          "Ref": "CreateUserLambdaFunction"
-        },
-        "CodeSha256": "btzPquvFCEDus3mODdMk1Z4Sexm0YMtpb6BcUsWAFmM="
-      }
-    },
-    "AppLambdaVersionz4ojBlmyis0FPc5i2iAR37vuLEqx9K7pLesQUg0BSs": {
+    "AppLambdaVersionJdPG9YPl8IlTIZcVnGoxyGVcS8k5LYpzc4UDexiGNU": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppLambdaFunction"
         },
-        "CodeSha256": "btzPquvFCEDus3mODdMk1Z4Sexm0YMtpb6BcUsWAFmM="
-      }
-    },
-    "GetUserLambdaVersion7G1MF1p1hpYoPchlI0aUtHnyBqvBGE10zxsr3QCb4": {
-      "Type": "AWS::Lambda::Version",
-      "DeletionPolicy": "Retain",
-      "Properties": {
-        "FunctionName": {
-          "Ref": "GetUserLambdaFunction"
-        },
-        "CodeSha256": "btzPquvFCEDus3mODdMk1Z4Sexm0YMtpb6BcUsWAFmM="
+        "CodeSha256": "kfpSaNq6poffz0T/a2se1AAlLN2GeHM/Pog/RJQuzGQ="
       }
     },
     "ApiGatewayRestApi": {
@@ -325,33 +233,6 @@
             "ApiGatewayRestApi",
             "RootResourceId"
           ]
-        },
-        "PathPart": "{proxy+}",
-        "RestApiId": {
-          "Ref": "ApiGatewayRestApi"
-        }
-      }
-    },
-    "ApiGatewayResourceUsers": {
-      "Type": "AWS::ApiGateway::Resource",
-      "Properties": {
-        "ParentId": {
-          "Fn::GetAtt": [
-            "ApiGatewayRestApi",
-            "RootResourceId"
-          ]
-        },
-        "PathPart": "users",
-        "RestApiId": {
-          "Ref": "ApiGatewayRestApi"
-        }
-      }
-    },
-    "ApiGatewayResourceUsersProxyVar": {
-      "Type": "AWS::ApiGateway::Resource",
-      "Properties": {
-        "ParentId": {
-          "Ref": "ApiGatewayResourceUsers"
         },
         "PathPart": "{proxy+}",
         "RestApiId": {
@@ -448,93 +329,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayMethodUsersProxyVarGet": {
-      "Type": "AWS::ApiGateway::Method",
-      "Properties": {
-        "HttpMethod": "GET",
-        "RequestParameters": {},
-        "ResourceId": {
-          "Ref": "ApiGatewayResourceUsersProxyVar"
-        },
-        "RestApiId": {
-          "Ref": "ApiGatewayRestApi"
-        },
-        "ApiKeyRequired": false,
-        "AuthorizationType": "NONE",
-        "Integration": {
-          "IntegrationHttpMethod": "POST",
-          "Type": "AWS_PROXY",
-          "Uri": {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
-                  "Ref": "AWS::Partition"
-                },
-                ":apigateway:",
-                {
-                  "Ref": "AWS::Region"
-                },
-                ":lambda:path/2015-03-31/functions/",
-                {
-                  "Fn::GetAtt": [
-                    "GetUserLambdaFunction",
-                    "Arn"
-                  ]
-                },
-                "/invocations"
-              ]
-            ]
-          }
-        },
-        "MethodResponses": []
-      }
-    },
-    "ApiGatewayMethodUsersPost": {
-      "Type": "AWS::ApiGateway::Method",
-      "Properties": {
-        "HttpMethod": "POST",
-        "RequestParameters": {},
-        "ResourceId": {
-          "Ref": "ApiGatewayResourceUsers"
-        },
-        "RestApiId": {
-          "Ref": "ApiGatewayRestApi"
-        },
-        "ApiKeyRequired": false,
-        "AuthorizationType": "NONE",
-        "Integration": {
-          "IntegrationHttpMethod": "POST",
-          "Type": "AWS_PROXY",
-          "Uri": {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
-                  "Ref": "AWS::Partition"
-                },
-                ":apigateway:",
-                {
-                  "Ref": "AWS::Region"
-                },
-                ":lambda:path/2015-03-31/functions/",
-                {
-                  "Fn::GetAtt": [
-                    "CreateUserLambdaFunction",
-                    "Arn"
-                  ]
-                },
-                "/invocations"
-              ]
-            ]
-          }
-        },
-        "MethodResponses": []
-      }
-    },
-    "ApiGatewayDeployment1619118098576": {
+    "ApiGatewayDeployment1619385898278": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -544,9 +339,7 @@
       },
       "DependsOn": [
         "ApiGatewayMethodAny",
-        "ApiGatewayMethodProxyVarAny",
-        "ApiGatewayMethodUsersProxyVarGet",
-        "ApiGatewayMethodUsersPost"
+        "ApiGatewayMethodProxyVarAny"
       ]
     },
     "AppLambdaPermissionApiGateway": {
@@ -555,80 +348,6 @@
         "FunctionName": {
           "Fn::GetAtt": [
             "AppLambdaFunction",
-            "Arn"
-          ]
-        },
-        "Action": "lambda:InvokeFunction",
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
-                "Ref": "AWS::Partition"
-              },
-              ":execute-api:",
-              {
-                "Ref": "AWS::Region"
-              },
-              ":",
-              {
-                "Ref": "AWS::AccountId"
-              },
-              ":",
-              {
-                "Ref": "ApiGatewayRestApi"
-              },
-              "/*/*"
-            ]
-          ]
-        }
-      }
-    },
-    "GetUserLambdaPermissionApiGateway": {
-      "Type": "AWS::Lambda::Permission",
-      "Properties": {
-        "FunctionName": {
-          "Fn::GetAtt": [
-            "GetUserLambdaFunction",
-            "Arn"
-          ]
-        },
-        "Action": "lambda:InvokeFunction",
-        "Principal": "apigateway.amazonaws.com",
-        "SourceArn": {
-          "Fn::Join": [
-            "",
-            [
-              "arn:",
-              {
-                "Ref": "AWS::Partition"
-              },
-              ":execute-api:",
-              {
-                "Ref": "AWS::Region"
-              },
-              ":",
-              {
-                "Ref": "AWS::AccountId"
-              },
-              ":",
-              {
-                "Ref": "ApiGatewayRestApi"
-              },
-              "/*/*"
-            ]
-          ]
-        }
-      }
-    },
-    "CreateUserLambdaPermissionApiGateway": {
-      "Type": "AWS::Lambda::Permission",
-      "Properties": {
-        "FunctionName": {
-          "Fn::GetAtt": [
-            "CreateUserLambdaFunction",
             "Arn"
           ]
         },
@@ -689,22 +408,10 @@
         "Ref": "ServerlessDeploymentBucket"
       }
     },
-    "CreateUserLambdaFunctionQualifiedArn": {
-      "Description": "Current Lambda function version",
-      "Value": {
-        "Ref": "CreateUserLambdaVersionGFqJrYsHkzJC16bJ1vUtuk338d55YfK2rOKTF8WTVMg"
-      }
-    },
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersionz4ojBlmyis0FPc5i2iAR37vuLEqx9K7pLesQUg0BSs"
-      }
-    },
-    "GetUserLambdaFunctionQualifiedArn": {
-      "Description": "Current Lambda function version",
-      "Value": {
-        "Ref": "GetUserLambdaVersion7G1MF1p1hpYoPchlI0aUtHnyBqvBGE10zxsr3QCb4"
+        "Ref": "AppLambdaVersionJdPG9YPl8IlTIZcVnGoxyGVcS8k5LYpzc4UDexiGNU"
       }
     },
     "ServiceEndpoint": {

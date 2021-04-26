@@ -18,12 +18,13 @@
   },
   "homepage": "https://github.com/Aetrix27/rest-serverless#readme",
   "dependencies": {
-    "aws-sdk": "^2.890.0",
+    "aws-sdk": "^2.892.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "serverless-http": "^2.7.0"
   },
   "devDependencies": {
+    "serverless-dynamodb-local": "^0.2.39",
     "serverless-offline": "^6.9.0"
   }
 }
